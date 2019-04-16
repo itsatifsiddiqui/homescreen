@@ -1,62 +1,62 @@
+import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:homescreen/authentication/authentication.dart';
+import 'package:homescreen/home.dart';
+import 'package:homescreen/login_screen.dart';
+import 'package:homescreen/simple_bloc_delegate.dart';
+import 'package:homescreen/splash/splash_screen.dart';
 
-void main() => runApp(MyApp());
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
-    );
-  }
+void main() {
+  BlocSupervisor().delegate = SimpleBlocDelegate();
+  runApp(MyApp());
 }
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-
-  final String title;
-
+class MyApp extends StatefulWidget {
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _MyAppState createState() => _MyAppState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+class _MyAppState extends State<MyApp> {
+  final UserRepository _userRepository = UserRepository();
+  AuthenticationBloc _authenticationBloc;
 
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
+  @override
+  void initState() {
+    super.initState();
+    _authenticationBloc = AuthenticationBloc(userRepository: _userRepository);
+    _authenticationBloc.dispatch(AppStarted());
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.display1,
-            ),
-          ],
+    return BlocProvider(
+      bloc: _authenticationBloc,
+      child: MaterialApp(
+        home: BlocBuilder(
+          bloc: _authenticationBloc,
+          builder: (BuildContext context, AuthenticationState state) {
+            print("NOW THE STATE IS => => => $state");
+            if (state is Uninitialized) {
+              return SplashScreen();
+            }
+            if (state is Authenticating)
+              return Scaffold(body: Center(child: CircularProgressIndicator()));
+
+            if (state is Unauthenticated) {
+              return LoginScreen(
+                userRepository: _userRepository,
+              );
+            }
+
+            if (state is Authenticated) {
+              return Home(
+                user: state.displayName,
+                repository: _userRepository,
+              );
+            }
+          },
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
       ),
     );
   }
