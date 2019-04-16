@@ -8,3 +8,4 @@ abstract class LoginEvent extends Equatable {
 
 
 class LoginInWithGoogle extends LoginEvent{}
+class LoginInWithFacebook extends LoginEvent{}

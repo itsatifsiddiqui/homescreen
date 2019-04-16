@@ -45,7 +45,7 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
           RaisedButton(
             child: Text("FaceBook Login"),
-            onPressed: () => _userRepository.signOut(),
+            onPressed: () => _loginBloc.dispatch(LoginInWithFacebook()),
           ),
         ],
       ),
