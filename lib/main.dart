@@ -3,10 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:homescreen/authentication/authentication.dart';
 import 'package:homescreen/home.dart';
-import 'package:homescreen/login_screen.dart';
 import 'package:homescreen/simple_bloc_delegate.dart';
 import 'package:homescreen/splash/splash_screen.dart';
-
+import 'package:homescreen/ui/login/login_screen.dart';
 void main() {
   BlocSupervisor().delegate = SimpleBlocDelegate();
   runApp(MyApp());
@@ -44,9 +43,7 @@ class _MyAppState extends State<MyApp> {
               return Scaffold(body: Center(child: CircularProgressIndicator()));
 
             if (state is Unauthenticated) {
-              return LoginScreen(
-                userRepository: _userRepository,
-              );
+              return LoginScreen(userRepository: _userRepository);
             }
 
             if (state is Authenticated) {
