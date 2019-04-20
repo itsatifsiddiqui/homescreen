@@ -6,6 +6,7 @@ import 'package:homescreen/home.dart';
 import 'package:homescreen/simple_bloc_delegate.dart';
 import 'package:homescreen/splash/splash_screen.dart';
 import 'package:homescreen/ui/login/login_screen.dart';
+
 void main() {
   BlocSupervisor().delegate = SimpleBlocDelegate();
   runApp(MyApp());
@@ -29,7 +30,6 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-
     return BlocProvider(
       bloc: _authenticationBloc,
       child: MaterialApp(
@@ -57,5 +57,11 @@ class _MyAppState extends State<MyApp> {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _authenticationBloc.dispose();
+    super.dispose();
   }
 }

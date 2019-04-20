@@ -112,6 +112,13 @@ class _LoginScreenState extends State<LoginScreen> {
         });
   }
 
+  @override
+  void dispose() {
+    _loginBloc.dispose();
+    _connectivityBloc.dispose();
+    super.dispose();
+  }
+
   void showScaffold(GlobalKey<ScaffoldState> _scaffoldKey) {
     _connectivityBloc.dispatch(CheckConnectivity());
     _scaffoldKey.currentState.showSnackBar(SnackBar(
