@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:homescreen/authentication/authentication.dart';
 
 class Home extends StatelessWidget {
-  final String user;
+  final FirebaseUser user;
   final UserRepository repository;
 
   const Home({Key key, @required this.user, @required this.repository})
@@ -18,7 +18,7 @@ class Home extends StatelessWidget {
       ),
       body: Column(
         children: <Widget>[
-          Text(user),
+          Text(user.displayName),
           RaisedButton(
             onPressed: () {
               BlocProvider.of<AuthenticationBloc>(context).dispatch(

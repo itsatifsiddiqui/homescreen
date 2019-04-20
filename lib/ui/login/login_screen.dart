@@ -50,9 +50,10 @@ class _LoginScreenState extends State<LoginScreen> {
           Align(
             alignment: Alignment(0, -0.2),
             child: Text(
-              "FiREiNN",
+              "Home\nScreen",
+              textAlign: TextAlign.center,
               style: TextStyle(
-                fontSize: 50,
+                fontSize: 35,
                 color: Colors.white,
                 fontFamily: "koliko",
                 fontWeight: FontWeight.w400,

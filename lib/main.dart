@@ -48,7 +48,7 @@ class _MyAppState extends State<MyApp> {
 
             if (state is Authenticated) {
               return Home(
-                user: state.displayName,
+                user: state.firebaseUser,
                 repository: _userRepository,
               );
             }
