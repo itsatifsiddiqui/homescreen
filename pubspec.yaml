@@ -29,6 +29,7 @@ dependencies:
   bottom_navy_bar: ^3.0.0
   flutter_inner_drawer: "^0.2.2"
   photo_view: ^0.2.2
+  connectivity:
   
 
 
