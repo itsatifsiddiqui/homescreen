@@ -99,7 +99,7 @@ class PostItem extends StatelessWidget {
             ),
             Container(
               height: mq.height / 2.2,
-              child:
+              child: 
                   //   child: post.isOpened
                   //       ? Stack(
                   //           fit: StackFit.passthrough,
