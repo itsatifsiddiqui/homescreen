@@ -1,30 +1,29 @@
 import 'package:equatable/equatable.dart';
-import 'package:homescreen/posts/Post.dart';
-import 'package:meta/meta.dart';
 
-@immutable
-abstract class PostsState extends Equatable {
-  PostsState([List props = const []]) : super(props);
+import 'package:homescreen/posts/Post.dart';
+
+abstract class PostState extends Equatable {
+  PostState([List props = const []]) : super(props);
 }
 
-class PostsUninitialized extends PostsState {
+class PostUninitialized extends PostState {
   @override
   String toString() => 'PostUninitialized';
 }
 
-class PostError extends PostsState {
+class PostError extends PostState {
   @override
   String toString() => 'PostError';
 }
 
-class PostLoaded extends PostsState {
+class PostLoaded extends PostState {
   final List<Post> posts;
   final bool hasReachedMax;
 
   PostLoaded({
     this.posts,
     this.hasReachedMax,
-  }) : super();
+  }) : super([posts, hasReachedMax]);
 
   PostLoaded copyWith({
     List<Post> posts,

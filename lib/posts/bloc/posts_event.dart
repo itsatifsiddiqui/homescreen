@@ -1,13 +1,13 @@
 import 'package:equatable/equatable.dart';
-import 'package:meta/meta.dart';
 
-@immutable
-abstract class PostsEvent extends Equatable {
-  PostsEvent([List props = const []]) : super(props);
-}
+abstract class PostEvent extends Equatable {}
 
-class Fetch extends PostsEvent {
+class Fetch extends PostEvent {
   @override
-  String toString() => "Fetch";
+  String toString() => 'Fetch';
 }
 
+class FetchMore extends PostEvent {
+  @override
+  String toString() => 'Fetch More';
+}

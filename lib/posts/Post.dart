@@ -6,6 +6,7 @@ class Post {
   String wallpaperUrl;
   String launcherName;
   String description;
+  bool isOpened;
   bool isFavourite;
   int seen;
   int likes;
