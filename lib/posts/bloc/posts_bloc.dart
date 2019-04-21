@@ -1,10 +1,19 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
+import 'package:homescreen/posts/Post.dart';
+import 'package:homescreen/posts/posts_repository/posts_repository.dart';
+import 'package:meta/meta.dart';
 import './bloc.dart';
 
 class PostsBloc extends Bloc<PostsEvent, PostsState> {
+  final PostsRepository _postsRepository;
+
+  PostsBloc({@required PostsRepository postsRepository})
+      : assert(postsRepository != null),
+        _postsRepository = postsRepository;
+
   @override
-  PostsState get initialState => PostUninitialized();
+  PostsState get initialState => PostsUninitialized();
 
   @override
   Stream<PostsState> mapEventToState(
@@ -12,9 +21,10 @@ class PostsBloc extends Bloc<PostsEvent, PostsState> {
   ) async* {
     if (event is Fetch && !_hasReachedMax(currentState)) {
       try {
-        if (currentState is PostUninitialized) {
-          // final posts = await _fetchPosts(0, 20);
-          // yield PostLoaded(posts: posts, hasReachedMax: false);
+        if (currentState is PostsUninitialized) {
+          List<Post> posts = await _postsRepository.getPosts();
+          print(posts.first);
+          yield PostLoaded(posts: posts, hasReachedMax: false);
         }
         if (currentState is PostLoaded) {
           // final posts = await _fetchPosts(currentState.posts.length, 20);

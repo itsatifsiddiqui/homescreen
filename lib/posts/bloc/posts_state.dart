@@ -7,7 +7,7 @@ abstract class PostsState extends Equatable {
   PostsState([List props = const []]) : super(props);
 }
 
-class PostUninitialized extends PostsState {
+class PostsUninitialized extends PostsState {
   @override
   String toString() => 'PostUninitialized';
 }

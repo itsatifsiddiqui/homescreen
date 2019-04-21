@@ -1,9 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:homescreen/authentication/authentication.dart';
 import 'package:homescreen/connectivity/bloc/bloc.dart';
 import 'package:homescreen/login/bloc/bloc.dart';
 import 'package:flutter_auth_buttons/flutter_auth_buttons.dart';
+import 'package:homescreen/posts/Post.dart';
 
 class LoginScreen extends StatefulWidget {
   final UserRepository _userRepository;
@@ -44,7 +46,6 @@ class _LoginScreenState extends State<LoginScreen> {
     return BlocBuilder(
         bloc: _connectivityBloc,
         builder: (context, ConnectivityState state) {
-          print("STATE IS ${state.toString()}");
           return Scaffold(
             key: _scaffoldKey,
             backgroundColor: Colors.blueGrey,

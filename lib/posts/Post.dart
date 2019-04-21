@@ -1,83 +1,56 @@
-import 'package:meta/meta.dart';
-
 class Post {
-  List<String> images;
-  int likes;
-  int seen;
-  String shareUrl;
-  String launcherName;
   String iconPack;
+  String otherInfo;
+  List<String> images;
   String widget;
   String wallpaperUrl;
-  String otherInfo;
+  String launcherName;
   String description;
-  bool isOpened;
   bool isFavourite;
-  String tags;
-  String _launcherSettingsUrl;
+  int seen;
+  int likes;
+  List<String> tags;
 
   Post(
-      {@required List<String> images,
-      @required int likes,
-      @required int seen,
-      String shareUrl,
-      @required String launcherName,
-      @required String iconPack,
-      @required String widget,
-      bool isOpened,
-      @required bool isFavourite,
-      String wallpaperUrl,
-      String otherInfo,
-      @required String description,
-      @required String tags,
-      String launcherSettingsUrl}) {
-    this.images = images;
-    this.likes = likes;
-    this.seen = seen;
-    this.shareUrl = shareUrl;
-    this.launcherName = launcherName;
-    this.iconPack = iconPack;
-    this.widget = widget;
-    this.isOpened = isOpened;
-    this.isFavourite = isFavourite;
-    this.wallpaperUrl = wallpaperUrl;
-    this.otherInfo = otherInfo;
-    this.description = description;
-    this.tags = tags;
-    this._launcherSettingsUrl = launcherSettingsUrl;
-  }
+      {this.iconPack,
+      this.otherInfo,
+      this.images,
+      this.widget,
+      this.wallpaperUrl,
+      this.launcherName,
+      this.description,
+      this.isFavourite,
+      this.seen,
+      this.likes,
+      this.tags});
 
   Post.fromJson(Map<String, dynamic> json) {
-    images = json['images'].cast<String>();
-    likes = json['likes'];
-    seen = json['seen'];
-    shareUrl = json['shareUrl'];
-    launcherName = json['launcherName'];
     iconPack = json['iconPack'];
-    widget = json['widget'];
-    isFavourite = json['isFavourite'];
-    wallpaperUrl = json['wallpaperUrl'];
     otherInfo = json['otherInfo'];
+    images = json['images'].cast<String>();
+    widget = json['widget'];
+    wallpaperUrl = json['wallpaperUrl'];
+    launcherName = json['launcherName'];
     description = json['description'];
-    tags = json['tags'];
-    _launcherSettingsUrl = json['launcherSettingsUrl'];
+    isFavourite = json['isFavourite'];
+    seen = json['seen'] as int;
+    likes = json['likes'] as int;
+    tags = json['tags'].cast<String>();
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['images'] = this.images;
-    data['likes'] = this.likes;
-    data['seen'] = this.seen;
-    data['shareUrl'] = this.shareUrl;
-    data['launcherName'] = this.launcherName;
     data['iconPack'] = this.iconPack;
-    data['widget'] = this.widget;
-    data['isFavourite'] = this.isFavourite;
-    data['wallpaperUrl'] = this.wallpaperUrl;
     data['otherInfo'] = this.otherInfo;
+    data['images'] = this.images;
+    data['widget'] = this.widget;
+    data['wallpaperUrl'] = this.wallpaperUrl;
+    data['launcherName'] = this.launcherName;
     data['description'] = this.description;
+    data['isFavourite'] = this.isFavourite;
+    data['seen'] = this.seen;
+    data['likes'] = this.likes;
     data['tags'] = this.tags;
-    data['launcherSettingsUrl'] = this._launcherSettingsUrl;
     return data;
   }
 }

@@ -36,7 +36,6 @@ class _MyAppState extends State<MyApp> {
         home: BlocBuilder(
           bloc: _authenticationBloc,
           builder: (BuildContext context, AuthenticationState state) {
-            print("NOW THE STATE IS => => => $state");
             if (state is Uninitialized) {
               return SplashScreen();
             }
