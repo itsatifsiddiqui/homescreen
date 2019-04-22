@@ -1,4 +1,5 @@
 class Post {
+  int id;
   String iconPack;
   String otherInfo;
   List<String> images;
@@ -13,7 +14,8 @@ class Post {
   List<String> tags;
 
   Post(
-      {this.iconPack,
+      {this.id,
+      this.iconPack,
       this.otherInfo,
       this.images,
       this.widget,
@@ -26,6 +28,7 @@ class Post {
       this.tags});
 
   Post.fromJson(Map<String, dynamic> json) {
+    id = json['id'] as int;
     iconPack = json['iconPack'];
     otherInfo = json['otherInfo'];
     images = json['images'].cast<String>();
@@ -41,6 +44,7 @@ class Post {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
     data['iconPack'] = this.iconPack;
     data['otherInfo'] = this.otherInfo;
     data['images'] = this.images;

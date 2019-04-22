@@ -5,25 +5,22 @@ class PostsRepository {
   Firestore _firestore = Firestore.instance;
 
   Future<List<Post>> getPosts() async {
-    return Future.wait(
-      await _firestore.collection("posts").limit(20).getDocuments().then(
-        ((posts) async {
-          return posts.documents.map((post) async {
-            return Post.fromJson(post.data);
-          }).toList();
-        }),
-      ),
-    );
+    Query _query = _firestore.collection("posts").orderBy("id").limit(10);
+    QuerySnapshot _querySnapshot = await _query.getDocuments();
+    List<DocumentSnapshot> _snpahots = _querySnapshot.documents;
+    List<Post> _posts =
+        _snpahots.map((post) => Post.fromJson(post.data)).toList();
+    return _posts;
   }
 
-  Future<List<Post>> fetchMore(Post post, int limit) async {
+  Future<List<Post>> fetchMore(Post lastDocument, int limit) async {
     print(
         "=========================MORE POSTS ARE BEING FETCHED =======================");
     return Future.wait(
       await Firestore.instance
           .collection("posts")
-          .orderBy("description", descending: true)
-          .startAfter([post.description])
+          .orderBy("id")
+          .startAfter([lastDocument.id])
           .limit(limit)
           .getDocuments()
           .then(

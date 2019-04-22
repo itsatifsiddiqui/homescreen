@@ -6,6 +6,7 @@ import 'package:homescreen/connectivity/bloc/bloc.dart';
 import 'package:homescreen/login/bloc/bloc.dart';
 import 'package:flutter_auth_buttons/flutter_auth_buttons.dart';
 import 'package:homescreen/posts/Post.dart';
+import '../../Test/test_functions.dart';
 
 class LoginScreen extends StatefulWidget {
   final UserRepository _userRepository;
@@ -81,6 +82,12 @@ class _LoginScreenState extends State<LoginScreen> {
                     width: mq.width / 1.2,
                     height: mq.height / 12,
                     child: GoogleSignInButton(
+                      // onPressed: () {
+                      //   for (var i = 0; i < 31; i++) {
+                      //     addPost(i);
+                      //   }
+                      //   // deleteAll();
+                      // },
                       onPressed: () {
                         if (state is Connected) {
                           _loginBloc.dispatch(LoginInWithGoogle());

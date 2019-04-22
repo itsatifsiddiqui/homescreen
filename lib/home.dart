@@ -60,16 +60,29 @@ class _HomeState extends State<Home> {
               child: Text('no posts'),
             );
           }
-          return ListView.builder(
-            itemBuilder: (BuildContext context, int index) {
-              return index >= state.posts.length
-                  ? BottomLoader()
-                  : PostWidget(post: state.posts[index]);
-            },
-            itemCount: state.hasReachedMax
-                ? state.posts.length
-                : state.posts.length + 1,
-            controller: _scrollController,
+          return Scaffold(
+            appBar: AppBar(
+              actions: <Widget>[
+                IconButton(
+                  icon: Icon(Icons.linked_camera),
+                  onPressed: () {
+                    BlocProvider.of<AuthenticationBloc>(context)
+                        .dispatch(LoggedOut());
+                  },
+                )
+              ],
+            ),
+            body: ListView.builder(
+              itemBuilder: (BuildContext context, int index) {
+                return index >= state.posts.length
+                    ? BottomLoader()
+                    : PostWidget(post: state.posts[index]);
+              },
+              itemCount: state.hasReachedMax
+                  ? state.posts.length
+                  : state.posts.length + 1,
+              controller: _scrollController,
+            ),
           );
         }
       },
@@ -176,7 +189,7 @@ class PostWidget extends StatelessWidget {
     return Material(
       child: ListTile(
         leading: Text(
-          '${post.likes}',
+          '${post.id}',
           style: TextStyle(fontSize: 10.0),
         ),
         title: Text(post.description),
