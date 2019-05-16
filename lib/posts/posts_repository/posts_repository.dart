@@ -1,11 +1,14 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:homescreen/posts/Post.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class PostsRepository {
   Firestore _firestore = Firestore.instance;
 
   Future<List<Post>> getPosts() async {
-    Query _query = _firestore.collection("posts").orderBy("id").limit(10);
+    Query _query = _firestore
+        .collection("posts")
+        .orderBy("id", descending: true)
+        .limit(10);
     QuerySnapshot _querySnapshot = await _query.getDocuments();
     List<DocumentSnapshot> _snpahots = _querySnapshot.documents;
     List<Post> _posts =
@@ -19,7 +22,7 @@ class PostsRepository {
     return Future.wait(
       await Firestore.instance
           .collection("posts")
-          .orderBy("id")
+          .orderBy("id", descending: true)
           .startAfter([lastDocument.id])
           .limit(limit)
           .getDocuments()
